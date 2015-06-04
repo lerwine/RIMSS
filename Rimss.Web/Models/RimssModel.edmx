@@ -1,0 +1,1111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RimssModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedById" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConversionJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Format" Type="int" Nullable="false" />
+          <Property Name="StartedOn" Type="datetime" Nullable="false" />
+          <Property Name="StartedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="StatusMessage" Type="nvarchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConversionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConvertedImageId" Type="uniqueidentifier" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Format" Type="int" Nullable="false" />
+          <Property Name="StartedOn" Type="datetime" Nullable="false" />
+          <Property Name="StartedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FinishedOn" Type="datetime" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="StatusMessage" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="DetailMessage" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConvertedImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Data" Type="image" Nullable="false" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Format" Type="int" Nullable="false" />
+          <Property Name="MetaData" Type="xml" Nullable="false" />
+          <Property Name="ConvertedOn" Type="datetime" Nullable="false" />
+          <Property Name="ConvertedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpiresOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DisplayText" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsPublic" Type="bit" Nullable="false" />
+          <Property Name="MetaData" Type="xml" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedById" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityCache">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SID" Type="varbinary" MaxLength="85" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="1024" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByLoginName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedBySID" Type="varbinary" MaxLength="85" Nullable="false" />
+          <Property Name="VerifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedByLoginName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedBySID" Type="varbinary" MaxLength="85" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SourceImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DisplayText" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsPublic" Type="bit" Nullable="false" />
+          <Property Name="Data" Type="image" Nullable="false" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Format" Type="int" Nullable="false" />
+          <Property Name="MetaData" Type="xml" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedById" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Application_CreatedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_ModifiedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionJob_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConversionJob" Type="Self.ConversionJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionJob">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionJob_StartedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConversionJob" Type="Self.ConversionJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionJob">
+              <PropertyRef Name="StartedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_ConvertedImage">
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="0..1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConvertedImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="ConvertedImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_StartedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="StartedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConvertedImage_ConvertedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConvertedImage">
+              <PropertyRef Name="ConvertedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConvertedImage_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConvertedImage">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_CreatedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_ModifiedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Parent">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="Folder1" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_CreatedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_ModifiedBy">
+          <End Role="IdentityCache" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityCache">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="EnsureCurrentUserIdentityCache" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="uniqueidentifier" Mode="InOut" />
+        </Function>
+        <Function Name="GetCurrentUserIdentityCache" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="IsDescendentOf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="FolderId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="AncestorId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="proc_FinishConversionJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="StatusMessage" Type="nvarchar" Mode="In" />
+          <Parameter Name="DetailMessage" Type="text" Mode="In" />
+        </Function>
+        <Function Name="proc_StartConversionJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SourceImageId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Width" Type="int" Mode="In" />
+          <Parameter Name="Height" Type="int" Mode="In" />
+          <Parameter Name="Format" Type="int" Mode="In" />
+          <Parameter Name="StartedById" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="InitialStatusId" Type="int" Mode="In" />
+          <Parameter Name="StatusMessage" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="RimssModelStoreContainer">
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConversionJob" EntityType="Self.ConversionJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConversionLog" EntityType="Self.ConversionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConvertedImage" EntityType="Self.ConvertedImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityCache" EntityType="Self.IdentityCache" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SourceImage" EntityType="Self.SourceImage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Application_CreatedBy" Association="Self.FK_Application_CreatedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_ModifiedBy" Association="Self.FK_Application_ModifiedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionJob_SourceImage" Association="Self.FK_ConversionJob_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImage" />
+            <End Role="ConversionJob" EntitySet="ConversionJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionJob_StartedBy" Association="Self.FK_ConversionJob_StartedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="ConversionJob" EntitySet="ConversionJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_ConvertedImage" Association="Self.FK_ConversionLog_ConvertedImage">
+            <End Role="ConvertedImage" EntitySet="ConvertedImage" />
+            <End Role="ConversionLog" EntitySet="ConversionLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_SourceImage" Association="Self.FK_ConversionLog_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImage" />
+            <End Role="ConversionLog" EntitySet="ConversionLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_StartedBy" Association="Self.FK_ConversionLog_StartedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="ConversionLog" EntitySet="ConversionLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConvertedImage_ConvertedBy" Association="Self.FK_ConvertedImage_ConvertedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="ConvertedImage" EntitySet="ConvertedImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConvertedImage_SourceImage" Association="Self.FK_ConvertedImage_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImage" />
+            <End Role="ConvertedImage" EntitySet="ConvertedImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Application" Association="Self.FK_Folder_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_CreatedBy" Association="Self.FK_Folder_CreatedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_ModifiedBy" Association="Self.FK_Folder_ModifiedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Parent" Association="Self.FK_Folder_Parent">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Folder1" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_Application" Association="Self.FK_SourceImage_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="SourceImage" EntitySet="SourceImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_CreatedBy" Association="Self.FK_SourceImage_CreatedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="SourceImage" EntitySet="SourceImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_Folder" Association="Self.FK_SourceImage_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="SourceImage" EntitySet="SourceImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_ModifiedBy" Association="Self.FK_SourceImage_ModifiedBy">
+            <End Role="IdentityCache" EntitySet="IdentityCache" />
+            <End Role="SourceImage" EntitySet="SourceImage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RimssModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>Created On</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreatedById" Type="Guid" Nullable="false" >
+          </Property>
+          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>Modified On</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ModifiedById" Type="Guid" Nullable="false" >
+          </Property>
+          <NavigationProperty Name="CreatedBy" Relationship="Self.FK_Application_CreatedBy" FromRole="Application" ToRole="CreatedBy" >
+            <Documentation>
+              <Summary>Created By</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="ModifiedBy" Relationship="Self.FK_Application_ModifiedBy" FromRole="Application" ToRole="ModifiedBy" >
+            <Documentation>
+              <Summary>Modified By</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="Folders" Relationship="Self.FK_Folder_Application" FromRole="Application" ToRole="Folder" />
+          <NavigationProperty Name="SourceImages" Relationship="Self.FK_SourceImage_Application" FromRole="Application" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="ConversionJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SourceImageId" Type="Guid" Nullable="false" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Format" Type="Int32" Nullable="false" />
+          <Property Name="StartedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartedById" Type="Guid" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="StatusMessage" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SourceImage" Relationship="Self.FK_ConversionJob_SourceImage" FromRole="ConversionJob" ToRole="SourceImage" />
+          <NavigationProperty Name="StartedBy" Relationship="Self.FK_ConversionJob_StartedBy" FromRole="ConversionJob" ToRole="StartedBy" />
+        </EntityType>
+        <EntityType Name="ConversionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SourceImageId" Type="Guid" Nullable="false" />
+          <Property Name="ConvertedImageId" Type="Guid" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Format" Type="Int32" Nullable="false" />
+          <Property Name="StartedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartedById" Type="Guid" Nullable="false" />
+          <Property Name="FinishedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="StatusMessage" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DetailMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ConvertedImage" Relationship="Self.FK_ConversionLog_ConvertedImage" FromRole="ConversionLog" ToRole="ConvertedImage" />
+          <NavigationProperty Name="SourceImage" Relationship="Self.FK_ConversionLog_SourceImage" FromRole="ConversionLog" ToRole="SourceImage" />
+          <NavigationProperty Name="StartedBy" Relationship="Self.FK_ConversionLog_StartedBy" FromRole="ConversionLog" ToRole="StartedBy" />
+        </EntityType>
+        <EntityType Name="ConvertedImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SourceImageId" Type="Guid" Nullable="false" />
+          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Format" Type="Int32" Nullable="false" />
+          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConvertedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConvertedById" Type="Guid" Nullable="false" />
+          <Property Name="ExpiresOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ConversionLogs" Relationship="Self.FK_ConversionLog_ConvertedImage" FromRole="ConvertedImage" ToRole="ConversionLog" />
+          <NavigationProperty Name="ConvertedBy" Relationship="Self.FK_ConvertedImage_ConvertedBy" FromRole="ConvertedImage" ToRole="ConvertedBy" />
+          <NavigationProperty Name="SourceImage" Relationship="Self.FK_ConvertedImage_SourceImage" FromRole="ConvertedImage" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DisplayText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Guid" Nullable="false" />
+          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedById" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Folder_Application" FromRole="Folder" ToRole="Application" />
+          <NavigationProperty Name="CreatedBy" Relationship="Self.FK_Folder_CreatedBy" FromRole="Folder" ToRole="CreatedBy" />
+          <NavigationProperty Name="ModifiedBy" Relationship="Self.FK_Folder_ModifiedBy" FromRole="Folder" ToRole="ModifiedBy" />
+          <NavigationProperty Name="SubFolders" Relationship="Self.FK_Folder_Parent" FromRole="ParentFolder" ToRole="Folder" />
+          <NavigationProperty Name="ParentFolder" Relationship="Self.FK_Folder_Parent" FromRole="Folder" ToRole="ParentFolder" />
+          <NavigationProperty Name="SourceImages" Relationship="Self.FK_SourceImage_Folder" FromRole="Folder" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="IdentityCache">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SID" Type="Binary" MaxLength="85" FixedLength="false" Nullable="false" />
+          <Property Name="LoginName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByLoginName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBySID" Type="Binary" MaxLength="85" FixedLength="false" Nullable="false" />
+          <Property Name="VerifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedByLoginName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBySID" Type="Binary" MaxLength="85" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="CreatedApplications" Relationship="Self.FK_Application_CreatedBy" FromRole="CreatedBy" ToRole="Application" />
+          <NavigationProperty Name="ModifiedApplications" Relationship="Self.FK_Application_ModifiedBy" FromRole="ModifiedBy" ToRole="Application" />
+          <NavigationProperty Name="ConversionJobs" Relationship="Self.FK_ConversionJob_StartedBy" FromRole="StartedBy" ToRole="ConversionJob" />
+          <NavigationProperty Name="ConversionLogs" Relationship="Self.FK_ConversionLog_StartedBy" FromRole="StartedBy" ToRole="ConversionLog" />
+          <NavigationProperty Name="ConvertedImages" Relationship="Self.FK_ConvertedImage_ConvertedBy" FromRole="ConvertedBy" ToRole="ConvertedImage" />
+          <NavigationProperty Name="CreatedFolders" Relationship="Self.FK_Folder_CreatedBy" FromRole="CreatedBy" ToRole="Folder" />
+          <NavigationProperty Name="ModifiedFolders" Relationship="Self.FK_Folder_ModifiedBy" FromRole="ModifiedBy" ToRole="Folder" />
+          <NavigationProperty Name="CreatedSourceImages" Relationship="Self.FK_SourceImage_CreatedBy" FromRole="CreatedBy" ToRole="SourceImage" />
+          <NavigationProperty Name="ModifiedSourceImages" Relationship="Self.FK_SourceImage_ModifiedBy" FromRole="ModifiedBy" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="SourceImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="DisplayText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="IsPublic" Type="Boolean" Nullable="false" />
+          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Format" Type="Int32" Nullable="false" />
+          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Guid" Nullable="false" />
+          <Property Name="ModfiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedById" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_SourceImage_Application" FromRole="SourceImage" ToRole="Application" />
+          <NavigationProperty Name="ConversionJobs" Relationship="Self.FK_ConversionJob_SourceImage" FromRole="SourceImage" ToRole="ConversionJob" />
+          <NavigationProperty Name="ConversionLogs" Relationship="Self.FK_ConversionLog_SourceImage" FromRole="SourceImage" ToRole="ConversionLog" />
+          <NavigationProperty Name="ConvertedImages" Relationship="Self.FK_ConvertedImage_SourceImage" FromRole="SourceImage" ToRole="ConvertedImage" />
+          <NavigationProperty Name="Folder" Relationship="Self.FK_SourceImage_Folder" FromRole="SourceImage" ToRole="Folder" />
+          <NavigationProperty Name="CreatedBy" Relationship="Self.FK_SourceImage_CreatedBy" FromRole="SourceImage" ToRole="CreatedBy" />
+          <NavigationProperty Name="ModifiedBy" Relationship="Self.FK_SourceImage_ModifiedBy" FromRole="SourceImage" ToRole="ModifiedBy" />
+        </EntityType>
+        <Association Name="FK_Application_CreatedBy">
+          <End Role="CreatedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_ModifiedBy">
+          <End Role="ModifiedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModifiedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionJob_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConversionJob" Type="Self.ConversionJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionJob">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionJob_StartedBy">
+          <End Role="StartedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConversionJob" Type="Self.ConversionJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionJob">
+              <PropertyRef Name="StartedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_ConvertedImage">
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="0..1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConvertedImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="ConvertedImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConversionLog_StartedBy">
+          <End Role="StartedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConversionLog" Type="Self.ConversionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConversionLog">
+              <PropertyRef Name="StartedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConvertedImage_ConvertedBy">
+          <End Role="ConvertedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConvertedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConvertedImage">
+              <PropertyRef Name="ConvertedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConvertedImage_SourceImage">
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="1" />
+          <End Role="ConvertedImage" Type="Self.ConvertedImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConvertedImage">
+              <PropertyRef Name="SourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_CreatedBy">
+          <End Role="CreatedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_ModifiedBy">
+          <End Role="ModifiedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModifiedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Parent">
+          <End Role="ParentFolder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParentFolder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_CreatedBy">
+          <End Role="CreatedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImage_ModifiedBy">
+          <End Role="ModifiedBy" Type="Self.IdentityCache" Multiplicity="1" />
+          <End Role="SourceImage" Type="Self.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModifiedBy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RimssDbEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="ConversionJobs" EntityType="Self.ConversionJob" />
+          <EntitySet Name="ConversionLogs" EntityType="Self.ConversionLog" />
+          <EntitySet Name="ConvertedImages" EntityType="Self.ConvertedImage" />
+          <EntitySet Name="Folders" EntityType="Self.Folder" />
+          <EntitySet Name="IdentityCaches" EntityType="Self.IdentityCache" />
+          <EntitySet Name="SourceImages" EntityType="Self.SourceImage" />
+          <AssociationSet Name="FK_Application_CreatedBy" Association="Self.FK_Application_CreatedBy">
+            <End Role="CreatedBy" EntitySet="IdentityCaches" />
+            <End Role="Application" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_ModifiedBy" Association="Self.FK_Application_ModifiedBy">
+            <End Role="ModifiedBy" EntitySet="IdentityCaches" />
+            <End Role="Application" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Application" Association="Self.FK_Folder_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_Application" Association="Self.FK_SourceImage_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="SourceImage" EntitySet="SourceImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionJob_SourceImage" Association="Self.FK_ConversionJob_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImages" />
+            <End Role="ConversionJob" EntitySet="ConversionJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionJob_StartedBy" Association="Self.FK_ConversionJob_StartedBy">
+            <End Role="StartedBy" EntitySet="IdentityCaches" />
+            <End Role="ConversionJob" EntitySet="ConversionJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_ConvertedImage" Association="Self.FK_ConversionLog_ConvertedImage">
+            <End Role="ConvertedImage" EntitySet="ConvertedImages" />
+            <End Role="ConversionLog" EntitySet="ConversionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_SourceImage" Association="Self.FK_ConversionLog_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImages" />
+            <End Role="ConversionLog" EntitySet="ConversionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConversionLog_StartedBy" Association="Self.FK_ConversionLog_StartedBy">
+            <End Role="StartedBy" EntitySet="IdentityCaches" />
+            <End Role="ConversionLog" EntitySet="ConversionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConvertedImage_ConvertedBy" Association="Self.FK_ConvertedImage_ConvertedBy">
+            <End Role="ConvertedBy" EntitySet="IdentityCaches" />
+            <End Role="ConvertedImage" EntitySet="ConvertedImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConvertedImage_SourceImage" Association="Self.FK_ConvertedImage_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImages" />
+            <End Role="ConvertedImage" EntitySet="ConvertedImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_CreatedBy" Association="Self.FK_Folder_CreatedBy">
+            <End Role="CreatedBy" EntitySet="IdentityCaches" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_ModifiedBy" Association="Self.FK_Folder_ModifiedBy">
+            <End Role="ModifiedBy" EntitySet="IdentityCaches" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Parent" Association="Self.FK_Folder_Parent">
+            <End Role="ParentFolder" EntitySet="Folders" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_Folder" Association="Self.FK_SourceImage_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="SourceImage" EntitySet="SourceImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_CreatedBy" Association="Self.FK_SourceImage_CreatedBy">
+            <End Role="CreatedBy" EntitySet="IdentityCaches" />
+            <End Role="SourceImage" EntitySet="SourceImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImage_ModifiedBy" Association="Self.FK_SourceImage_ModifiedBy">
+            <End Role="ModifiedBy" EntitySet="IdentityCaches" />
+            <End Role="SourceImage" EntitySet="SourceImages" />
+          </AssociationSet>
+          <FunctionImport Name="EnsureCurrentUserIdentityCache">
+            <Parameter Name="Id" Mode="InOut" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetCurrentUserIdentityCache" ReturnType="Collection(RimssModel.GetCurrentUserIdentityCache_Result)" />
+          <FunctionImport Name="proc_FinishConversionJob" ReturnType="Collection(RimssModel.proc_FinishConversionJob_Result)">
+            <Parameter Name="Id" Mode="In" Type="Guid" />
+            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+            <Parameter Name="StatusMessage" Mode="In" Type="String" />
+            <Parameter Name="DetailMessage" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_StartConversionJob">
+            <Parameter Name="SourceImageId" Mode="In" Type="Guid" />
+            <Parameter Name="Width" Mode="In" Type="Int32" />
+            <Parameter Name="Height" Mode="In" Type="Int32" />
+            <Parameter Name="Format" Mode="In" Type="Int32" />
+            <Parameter Name="StartedById" Mode="In" Type="Guid" />
+            <Parameter Name="InitialStatusId" Mode="In" Type="Int32" />
+            <Parameter Name="StatusMessage" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetCurrentUserIdentityCache_Result">
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Binary" Name="SID" Nullable="false" MaxLength="85" />
+          <Property Type="String" Name="LoginName" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="1024" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedByLoginName" Nullable="false" MaxLength="128" />
+          <Property Type="Binary" Name="CreatedBySID" Nullable="false" MaxLength="85" />
+          <Property Type="DateTime" Name="VerifiedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ModifiedByLoginName" Nullable="false" MaxLength="128" />
+          <Property Type="Binary" Name="ModifiedBySID" Nullable="false" MaxLength="85" />
+        </ComplexType>
+        <ComplexType Name="proc_FinishConversionJob_Result">
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="SourceImageId" Nullable="false" />
+          <Property Type="Guid" Name="ConvertedImageId" Nullable="true" />
+          <Property Type="Int32" Name="Width" Nullable="false" />
+          <Property Type="Int32" Name="Height" Nullable="false" />
+          <Property Type="Int32" Name="Format" Nullable="false" />
+          <Property Type="DateTime" Name="StartedOn" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="StartedById" Nullable="false" />
+          <Property Type="DateTime" Name="FinishedOn" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="StatusId" Nullable="false" />
+          <Property Type="String" Name="StatusMessage" Nullable="false" MaxLength="1024" />
+          <Property Type="String" Name="DetailMessage" Nullable="false" MaxLength="Max" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RimssModelStoreContainer" CdmEntityContainer="RimssDbEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="RimssModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConversionJobs">
+            <EntityTypeMapping TypeName="RimssModel.ConversionJob">
+              <MappingFragment StoreEntitySet="ConversionJob">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceImageId" ColumnName="SourceImageId" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
+                <ScalarProperty Name="StartedById" ColumnName="StartedById" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusMessage" ColumnName="StatusMessage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConversionLogs">
+            <EntityTypeMapping TypeName="RimssModel.ConversionLog">
+              <MappingFragment StoreEntitySet="ConversionLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceImageId" ColumnName="SourceImageId" />
+                <ScalarProperty Name="ConvertedImageId" ColumnName="ConvertedImageId" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
+                <ScalarProperty Name="StartedById" ColumnName="StartedById" />
+                <ScalarProperty Name="FinishedOn" ColumnName="FinishedOn" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusMessage" ColumnName="StatusMessage" />
+                <ScalarProperty Name="DetailMessage" ColumnName="DetailMessage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConvertedImages">
+            <EntityTypeMapping TypeName="RimssModel.ConvertedImage">
+              <MappingFragment StoreEntitySet="ConvertedImage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceImageId" ColumnName="SourceImageId" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="MetaData" ColumnName="MetaData" />
+                <ScalarProperty Name="ConvertedOn" ColumnName="ConvertedOn" />
+                <ScalarProperty Name="ConvertedById" ColumnName="ConvertedById" />
+                <ScalarProperty Name="ExpiresOn" ColumnName="ExpiresOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Folders">
+            <EntityTypeMapping TypeName="RimssModel.Folder">
+              <MappingFragment StoreEntitySet="Folder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayText" ColumnName="DisplayText" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="MetaData" ColumnName="MetaData" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityCaches">
+            <EntityTypeMapping TypeName="RimssModel.IdentityCache">
+              <MappingFragment StoreEntitySet="IdentityCache">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedByLoginName" ColumnName="CreatedByLoginName" />
+                <ScalarProperty Name="CreatedBySID" ColumnName="CreatedBySID" />
+                <ScalarProperty Name="VerifiedOn" ColumnName="VerifiedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedByLoginName" ColumnName="ModifiedByLoginName" />
+                <ScalarProperty Name="ModifiedBySID" ColumnName="ModifiedBySID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceImages">
+            <EntityTypeMapping TypeName="RimssModel.SourceImage">
+              <MappingFragment StoreEntitySet="SourceImage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayText" ColumnName="DisplayText" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="MetaData" ColumnName="MetaData" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EnsureCurrentUserIdentityCache" FunctionName="RimssModel.Store.EnsureCurrentUserIdentityCache" />
+          <FunctionImportMapping FunctionImportName="GetCurrentUserIdentityCache" FunctionName="RimssModel.Store.GetCurrentUserIdentityCache">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RimssModel.GetCurrentUserIdentityCache_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedByLoginName" ColumnName="CreatedByLoginName" />
+                <ScalarProperty Name="CreatedBySID" ColumnName="CreatedBySID" />
+                <ScalarProperty Name="VerifiedOn" ColumnName="VerifiedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedByLoginName" ColumnName="ModifiedByLoginName" />
+                <ScalarProperty Name="ModifiedBySID" ColumnName="ModifiedBySID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_FinishConversionJob" FunctionName="RimssModel.Store.proc_FinishConversionJob">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RimssModel.proc_FinishConversionJob_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceImageId" ColumnName="SourceImageId" />
+                <ScalarProperty Name="ConvertedImageId" ColumnName="ConvertedImageId" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
+                <ScalarProperty Name="StartedById" ColumnName="StartedById" />
+                <ScalarProperty Name="FinishedOn" ColumnName="FinishedOn" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusMessage" ColumnName="StatusMessage" />
+                <ScalarProperty Name="DetailMessage" ColumnName="DetailMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_StartConversionJob" FunctionName="RimssModel.Store.proc_StartConversionJob" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
