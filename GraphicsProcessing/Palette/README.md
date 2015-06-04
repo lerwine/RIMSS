@@ -1,14 +1,17 @@
 A Simple - Yet Quite Powerful - Palette Quantizer Library
 =========================================================
-Converted to a class library by Leonard T. Erwine, October, 2014.
+- Converted to a class library by Leonard T. Erwine, October, 2014.
 
 This contains source code which was taken from a Code Project Article and modified as a class library.
-A bug was discovered in the Octre quantizer, which I fixed using locking and thread-safe collections from the LTEToolkitLibrary C# project.
+
+NOTE: A different license (The Code Project Open License) applies to the code in this folder.
+
+A bug was discovered in the Octree quantizer, which I fixed using locking and thread-safe collections from the LTEToolkitLibrary C# project.
 
 Dependency Information
 ----------------------
 
-The modifications to this project depend upon thread-safe collections which exist in the LTEToolKitLibrary project.
+The modifications to this project depend upon thread-safe collections which have been ported into in the Rimss.Common project.
 
 Summary of modifications
 ------------------------
