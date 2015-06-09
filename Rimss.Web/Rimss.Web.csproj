@@ -148,6 +148,7 @@
     <Compile Include="Models\ConversionJobLog.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConversionJobLog_Extended.cs" />
     <Compile Include="Models\ConvertedImage.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>

@@ -5,7 +5,7 @@ namespace Rimss.Common
     /// <summary>
     /// Enumeration of supported image types
     /// </summary>
-    public enum ImageFormatCodes : byte
+    public enum ImageFormatCodes : int
     {
         /// <summary>
         /// Joint Photographic Experts Group (JPEG) image format.

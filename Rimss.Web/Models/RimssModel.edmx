@@ -1770,7 +1770,7 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="ReasonId" Type="Int32" Nullable="false" />
+          <Property Name="ReasonId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedById" Type="Guid" Nullable="false" />
           <Property Name="StartedOn" Type="DateTime" Precision="3" />
@@ -1782,7 +1782,7 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <Property Name="DetailMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Application" Relationship="RimssModel.FK_ConversionJobLog_Application" FromRole="ConversionJobLog" ToRole="Application" />
           <NavigationProperty Name="CreatedBy" Relationship="RimssModel.FK_ConversionJobLog_CreatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
-          <NavigationProperty Name="JobReasonCode" Relationship="RimssModel.FK_ConversionJobLog_JobReasonCodes" FromRole="ConversionJobLog" ToRole="JobReasonCode" />
+          <NavigationProperty Name="JobReasonCode" Relationship="RimssModel.FK_ConversionJobLog_JobReasonCodes" FromRole="ConversionJobLog" ToRole="JobReasonCode" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="JobStatusCode" Relationship="RimssModel.FK_ConversionJobLog_JobStatusCodes" FromRole="ConversionJobLog" ToRole="JobStatusCode" />
           <NavigationProperty Name="StartedBy" Relationship="RimssModel.FK_ConversionJobLog_StartedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
           <NavigationProperty Name="TerminatedBy" Relationship="RimssModel.FK_ConversionJobLog_TerminatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
@@ -2437,6 +2437,8 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="JobReasons" a:ExternalTypeName="Rimss.Common.JobReasonCodes" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="JobStatusValues" a:ExternalTypeName="Rimss.Common.JobStatusCodes" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

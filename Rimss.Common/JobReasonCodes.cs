@@ -7,7 +7,7 @@ namespace Rimss.Common
     /// <summary>
     /// Enumerated list of job types.
     /// </summary>
-    public enum JobReasonCodes : byte
+    public enum JobReasonCodes : int
     {
         [DisplayText("New image conversion parameters applied.")]
         NewConversionParameters = 0,

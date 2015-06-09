@@ -21,7 +21,7 @@
         <AssociationConnector Association="RimssModel.FK_SourceImage_Folder" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_SourceImage_CreatedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_SourceImage_ModifiedBy" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="RimssModel.ConversionJobLog" Width="1.875" PointX="9.875" PointY="7" />
+        <EntityTypeShape EntityType="RimssModel.ConversionJobLog" Width="1.875" PointX="9.875" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="RimssModel.FileConversionLog" Width="2.375" PointX="22" PointY="7" />
         <EntityTypeShape EntityType="RimssModel.ImageFormatCode" Width="1.875" PointX="10.5" PointY="3.125" />
         <EntityTypeShape EntityType="RimssModel.JobReasonCode" Width="2" PointX="7.125" PointY="12.875" />

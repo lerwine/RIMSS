@@ -2,7 +2,7 @@
 
 namespace Rimss.Common
 {
-    public enum JobStatusCodes : byte
+    public enum JobStatusCodes : int
     {
         [DisplayText("Waiting")]
         Waiting = 0,
