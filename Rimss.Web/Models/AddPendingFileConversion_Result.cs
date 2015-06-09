@@ -10,25 +10,21 @@
 namespace Rimss.Web.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ConversionLog
+    public partial class AddPendingFileConversion_Result
     {
         public System.Guid Id { get; set; }
+        public System.Guid JobId { get; set; }
+        public Nullable<System.DateTime> StartedOn { get; set; }
+        public Nullable<System.DateTime> TerminatedOn { get; set; }
         public System.Guid SourceImageId { get; set; }
-        public Nullable<System.Guid> ConvertedImageId { get; set; }
+        public string Tag { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Format { get; set; }
-        public System.DateTime StartedOn { get; set; }
-        public System.Guid StartedById { get; set; }
-        public System.DateTime FinishedOn { get; set; }
+        public int FormatId { get; set; }
+        public Nullable<System.Guid> ConvertedImageId { get; set; }
         public int StatusId { get; set; }
         public string StatusMessage { get; set; }
         public string DetailMessage { get; set; }
-    
-        public virtual ConvertedImage ConvertedImage { get; set; }
-        public virtual SourceImage SourceImage { get; set; }
-        public virtual IdentityCache StartedBy { get; set; }
     }
 }

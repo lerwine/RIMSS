@@ -18,13 +18,15 @@ namespace Rimss.Web.Models
         {
             this.CreatedApplications = new HashSet<Application>();
             this.ModifiedApplications = new HashSet<Application>();
-            this.ConversionJobs = new HashSet<ConversionJob>();
-            this.ConversionLogs = new HashSet<ConversionLog>();
-            this.ConvertedImages = new HashSet<ConvertedImage>();
             this.CreatedFolders = new HashSet<Folder>();
             this.ModifiedFolders = new HashSet<Folder>();
             this.CreatedSourceImages = new HashSet<SourceImage>();
             this.ModifiedSourceImages = new HashSet<SourceImage>();
+            this.CreatedConversionJobLogs = new HashSet<ConversionJobLog>();
+            this.StartedConversionJobLogs = new HashSet<ConversionJobLog>();
+            this.TerminatedConversionJobLogs = new HashSet<ConversionJobLog>();
+            this.CreatedConvertedImages = new HashSet<ConvertedImage>();
+            this.ModifiedConvertedImages = new HashSet<ConvertedImage>();
         }
     
         public System.Guid Id { get; set; }
@@ -42,12 +44,14 @@ namespace Rimss.Web.Models
     
         public virtual ICollection<Application> CreatedApplications { get; set; }
         public virtual ICollection<Application> ModifiedApplications { get; set; }
-        public virtual ICollection<ConversionJob> ConversionJobs { get; set; }
-        public virtual ICollection<ConversionLog> ConversionLogs { get; set; }
-        public virtual ICollection<ConvertedImage> ConvertedImages { get; set; }
         public virtual ICollection<Folder> CreatedFolders { get; set; }
         public virtual ICollection<Folder> ModifiedFolders { get; set; }
         public virtual ICollection<SourceImage> CreatedSourceImages { get; set; }
         public virtual ICollection<SourceImage> ModifiedSourceImages { get; set; }
+        public virtual ICollection<ConversionJobLog> CreatedConversionJobLogs { get; set; }
+        public virtual ICollection<ConversionJobLog> StartedConversionJobLogs { get; set; }
+        public virtual ICollection<ConversionJobLog> TerminatedConversionJobLogs { get; set; }
+        public virtual ICollection<ConvertedImage> CreatedConvertedImages { get; set; }
+        public virtual ICollection<ConvertedImage> ModifiedConvertedImages { get; set; }
     }
 }

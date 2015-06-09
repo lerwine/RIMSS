@@ -12,31 +12,22 @@ namespace Rimss.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Folder
+    public partial class View_FolderListing
     {
-        public Folder()
-        {
-            this.SubFolders = new HashSet<Folder>();
-            this.SourceImages = new HashSet<SourceImage>();
-        }
-    
         public System.Guid Id { get; set; }
         public string DisplayText { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public Nullable<System.Guid> ParentId { get; set; }
         public System.Guid ApplicationId { get; set; }
-        public string MetaData { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public System.Guid CreatedById { get; set; }
-        public System.Guid ModifiedById { get; set; }
+        public string CreatedByLoginName { get; set; }
+        public string CreatedByDisplayName { get; set; }
         public System.DateTime ModifiedOn { get; set; }
-    
-        public virtual Application Application { get; set; }
-        public virtual IdentityCache CreatedBy { get; set; }
-        public virtual IdentityCache ModifiedBy { get; set; }
-        public virtual ICollection<Folder> SubFolders { get; set; }
-        public virtual Folder ParentFolder { get; set; }
-        public virtual ICollection<SourceImage> SourceImages { get; set; }
+        public System.Guid ModifiedById { get; set; }
+        public string ModifiedByLoginName { get; set; }
+        public string ModifiedByDisplayName { get; set; }
+        public Nullable<int> ChildFolderCount { get; set; }
+        public Nullable<int> SourceImageCount { get; set; }
     }
 }

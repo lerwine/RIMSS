@@ -12,27 +12,17 @@ namespace Rimss.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Application
+    public partial class JobReasonCode
     {
-        public Application()
+        public JobReasonCode()
         {
-            this.Folders = new HashSet<Folder>();
-            this.SourceImages = new HashSet<SourceImage>();
             this.ConversionJobLogs = new HashSet<ConversionJobLog>();
         }
     
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public System.Guid CreatedById { get; set; }
-        public System.Guid ModifiedById { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
     
-        public virtual IdentityCache CreatedBy { get; set; }
-        public virtual IdentityCache ModifiedBy { get; set; }
-        public virtual ICollection<Folder> Folders { get; set; }
-        public virtual ICollection<SourceImage> SourceImages { get; set; }
         public virtual ICollection<ConversionJobLog> ConversionJobLogs { get; set; }
     }
 }

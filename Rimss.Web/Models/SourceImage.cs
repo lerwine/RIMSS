@@ -16,9 +16,8 @@ namespace Rimss.Web.Models
     {
         public SourceImage()
         {
-            this.ConversionJobs = new HashSet<ConversionJob>();
-            this.ConversionLogs = new HashSet<ConversionLog>();
             this.ConvertedImages = new HashSet<ConvertedImage>();
+            this.FileConversionLogs = new HashSet<FileConversionLog>();
         }
     
         public System.Guid Id { get; set; }
@@ -27,23 +26,22 @@ namespace Rimss.Web.Models
         public string Description { get; set; }
         public Nullable<System.Guid> ParentId { get; set; }
         public System.Guid ApplicationId { get; set; }
-        public bool IsPublic { get; set; }
         public byte[] Data { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Format { get; set; }
         public string MetaData { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public System.Guid CreatedById { get; set; }
-        public System.DateTime ModfiedOn { get; set; }
         public System.Guid ModifiedById { get; set; }
+        public int FormatId { get; set; }
+        public System.DateTime ModifiedOn { get; set; }
     
         public virtual Application Application { get; set; }
-        public virtual ICollection<ConversionJob> ConversionJobs { get; set; }
-        public virtual ICollection<ConversionLog> ConversionLogs { get; set; }
         public virtual ICollection<ConvertedImage> ConvertedImages { get; set; }
         public virtual Folder Folder { get; set; }
         public virtual IdentityCache CreatedBy { get; set; }
         public virtual IdentityCache ModifiedBy { get; set; }
+        public virtual ICollection<FileConversionLog> FileConversionLogs { get; set; }
+        public virtual ImageFormatCode ImageFormatCode { get; set; }
     }
 }

@@ -136,16 +136,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddPendingFileConversion_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Application.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConversionJob.cs">
+    <Compile Include="Models\CancelConversionJob_Result.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConversionLog.cs">
+    <Compile Include="Models\ConversionJobLog.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ConvertedImage.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreatePendingConversionJob_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileConversionLog.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Folder.cs">
@@ -155,6 +164,15 @@
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityCache.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImageFormatCode.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobReasonCode.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobStatusCode.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\proc_FinishConversionJob_Result.cs">
@@ -176,6 +194,51 @@
       <DependentUpon>RimssModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SourceImage.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StartNextPendingFileConversion_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UpdateConversionJobStatus_Result.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ApplicationConversionJobLogListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ApplicationConvertedImageListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ApplicationListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_FileConversionChangeDetails.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_FolderListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_JobFileConversionLogListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_SourceConvertedImageListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_SourceFileConversionLogListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_SourceImageListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_SystemConversionJobLogListing.cs">
+      <DependentUpon>RimssModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_SystemConvertedImageListing.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

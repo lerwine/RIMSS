@@ -56,7 +56,7 @@ namespace Rimss.Web.Controllers
                 application.CreatedById = currentUser.Id;
                 application.CreatedOn = DateTime.Now;
                 application.ModifiedById = currentUser.Id;
-                application.ModfiedOn = application.CreatedOn;
+                application.ModifiedOn = application.CreatedOn;
                 application.Id = Guid.NewGuid();
                 db.Applications.Add(application);
                 db.SaveChanges();
@@ -92,7 +92,7 @@ namespace Rimss.Web.Controllers
                 db.Entry(application).State = EntityState.Modified;
                 GetCurrentUserIdentityCache_Result currentUser = db.GetCurrentUserIdentityCache().FirstOrDefault();
                 application.ModifiedById = currentUser.Id;
-                application.ModfiedOn = DateTime.Now;
+                application.ModifiedOn = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

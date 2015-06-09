@@ -10,21 +10,20 @@
 namespace Rimss.Web.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ConversionJob
+    public partial class UpdateConversionJobStatus_Result
     {
         public System.Guid Id { get; set; }
-        public System.Guid SourceImageId { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public int Format { get; set; }
-        public System.DateTime StartedOn { get; set; }
-        public System.Guid StartedById { get; set; }
+        public System.Guid ApplicationId { get; set; }
+        public int ReasonId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public System.Guid CreatedById { get; set; }
+        public Nullable<System.DateTime> StartedOn { get; set; }
+        public Nullable<System.Guid> StartedById { get; set; }
+        public Nullable<System.DateTime> TerminatedOn { get; set; }
+        public Nullable<System.Guid> TerminatedById { get; set; }
         public int StatusId { get; set; }
         public string StatusMessage { get; set; }
-    
-        public virtual SourceImage SourceImage { get; set; }
-        public virtual IdentityCache StartedBy { get; set; }
+        public string DetailMessage { get; set; }
     }
 }
