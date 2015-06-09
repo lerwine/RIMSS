@@ -5,23 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3c8c83e692324066bff3a55a4809f130" Name="Diagram1" ZoomLevel="72">
-        <EntityTypeShape EntityType="RimssModel.Application" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.ConversionJob" Width="1.5" PointX="9.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.ConversionLog" Width="1.5" PointX="12.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.ConvertedImage" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.Folder" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.IdentityCache" Width="2" PointX="0.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RimssModel.SourceImage" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RimssModel.Application" Width="2" PointX="4.125" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RimssModel.ConvertedImage" Width="2.5" PointX="18.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RimssModel.Folder" Width="1.5" PointX="6.875" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="RimssModel.IdentityCache" Width="2.625" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RimssModel.SourceImage" Width="1.875" PointX="13.125" PointY="6.375" IsExpanded="true" />
         <AssociationConnector Association="RimssModel.FK_Application_CreatedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_Application_ModifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_Folder_Application" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_SourceImage_Application" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConversionJob_SourceImage" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConversionJob_StartedBy" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConversionLog_ConvertedImage" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConversionLog_SourceImage" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConversionLog_StartedBy" ManuallyRouted="false" />
-        <AssociationConnector Association="RimssModel.FK_ConvertedImage_ConvertedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_ConvertedImage_SourceImage" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_Folder_CreatedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_Folder_ModifiedBy" ManuallyRouted="false" />
@@ -29,6 +21,38 @@
         <AssociationConnector Association="RimssModel.FK_SourceImage_Folder" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_SourceImage_CreatedBy" ManuallyRouted="false" />
         <AssociationConnector Association="RimssModel.FK_SourceImage_ModifiedBy" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RimssModel.ConversionJobLog" Width="1.875" PointX="9.875" PointY="7" />
+        <EntityTypeShape EntityType="RimssModel.FileConversionLog" Width="2.375" PointX="22" PointY="7" />
+        <EntityTypeShape EntityType="RimssModel.ImageFormatCode" Width="1.875" PointX="10.5" PointY="3.125" />
+        <EntityTypeShape EntityType="RimssModel.JobReasonCode" Width="2" PointX="7.125" PointY="12.875" />
+        <EntityTypeShape EntityType="RimssModel.JobStatusCode" Width="2.125" PointX="7" PointY="4.125" />
+        <EntityTypeShape EntityType="RimssModel.View_ApplicationConversionJobLogListing" Width="1.5" PointX="9.75" PointY="12.75" />
+        <EntityTypeShape EntityType="RimssModel.View_ApplicationConvertedImageListing" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RimssModel.View_ApplicationListing" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RimssModel.View_FileConversionChangeDetails" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RimssModel.View_FolderListing" Width="2.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RimssModel.View_JobFileConversionLogListing" Width="1.5" PointX="11.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RimssModel.View_SourceConvertedImageListing" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RimssModel.View_SourceFileConversionLogListing" Width="1.5" PointX="13.75" PointY="13.75" />
+        <EntityTypeShape EntityType="RimssModel.View_SourceImageListing" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RimssModel.View_SystemConversionJobLogListing" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="RimssModel.View_SystemConvertedImageListing" Width="1.5" PointX="6.75" PointY="15.75" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_Application" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_CreatedBy" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_JobReasonCodes" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_JobStatusCodes" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_StartedBy" />
+        <AssociationConnector Association="RimssModel.FK_ConversionJobLog_TerminatedBy" />
+        <AssociationConnector Association="RimssModel.FK_FileConversionLog_ConversionJobLog" />
+        <AssociationConnector Association="RimssModel.FK_ConvertedImage_CreatedBy" />
+        <AssociationConnector Association="RimssModel.FK_ConvertedImage_ModifiedBy" />
+        <AssociationConnector Association="RimssModel.FK_ConversionLog_ConvertedImage1" />
+        <AssociationConnector Association="RimssModel.FK_FileConversionLog_ImageFormatCodes" />
+        <AssociationConnector Association="RimssModel.FK_FileConversionLog_JobStatusCodes" />
+        <AssociationConnector Association="RimssModel.FK_FileConversionLog_SourceImage" />
+        <AssociationConnector Association="RimssModel.FK_SourceImage_ImageFormatCodes" />
+        <AssociationConnector Association="RimssModel.FK_ConversionLog_ConvertedImage2" />
+        <AssociationConnector Association="RimssModel.FK_ConvertedImage_ImageFormatCodes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

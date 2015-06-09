@@ -11,7 +11,7 @@ namespace Rimss.Common.Collections.Synchronized
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     public abstract class SynchronizedEnumerableBase<T> : IEnumerable<T>, IList
     {
-        private List<T> _innerSynchronizedList;
+        private List<T> _innerList;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> class that is empty and has the 
@@ -58,30 +58,8 @@ namespace Rimss.Common.Collections.Synchronized
         /// was overridden and did not return a syncrhonzized list.</exception>
         protected virtual void Initialize(ICollection<T> collection)
         {
-            this._innerSynchronizedList = new List<T>(collection);
+            this._innerList = new List<T>(collection);
         }
-
-        ///// <summary>
-        ///// Called from within the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;.CreateSynchronizedList()"/> method to create a 
-        ///// syncrhonized <see cref="System.Collections.IList"/>.
-        ///// </summary>
-        ///// <param name="collection">The collection from which the new synchronized <see cref="System.Collections.IList"/> is to be created.</param>
-        ///// <returns>A new synchronized <see cref="System.Collections.IList"/>.</returns>
-        //protected virtual IList CreateSynchronizedList(ICollection<T> collection)
-        //{
-        //    if (collection == null)
-        //        throw new ArgumentNullException("collection");
-
-        //    return this._CreateSynchronizedList(collection);
-        //}
-
-        //private IList _CreateSynchronizedList(ICollection<T> collection)
-        //{
-        //    if (collection is ArrayList)
-        //        return ArrayList.Synchronized(collection as ArrayList);
-
-        //    return ArrayList.Synchronized((collection is IList) ? collection as IList : collection.ToList());
-        //}
 
         #region IList<T> Support Members
 
@@ -122,7 +100,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in
         /// the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</exception>
         /// <exception cref="System.NotSupportedException">The <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> is read-only.</exception>
-        protected virtual void BaseRemoveAt(int index) { this._innerSynchronizedList.RemoveAt(index); }
+        protected virtual void BaseRemoveAt(int index) { this._innerList.RemoveAt(index); }
 
         /// <summary>
         /// Sets the element at the specified index.
@@ -162,7 +140,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <summary>
         /// Gets the number of elements contained in the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
         /// </summary>
-        public int Count { get { return this._innerSynchronizedList.Count; } }
+        public int Count { get { return this._innerList.Count; } }
 
         /// <summary>
         /// Adds an item to the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
@@ -179,7 +157,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <exception cref="System.NotSupportedException">The <see cref="SynchronizedCollections.SyncrhonizedEnumerableBase&lt;T&gt;"/> is read-only.
         /// <para>-or-</para>
         /// <para>The <see cref="SynchronizedCollections.SyncrhonizedEnumerableBase&lt;T&gt;"/> has a fixed size.</exception>
-        protected virtual void BaseClear() { this._innerSynchronizedList.Clear(); }
+        protected virtual void BaseClear() { this._innerList.Clear(); }
 
         /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
@@ -207,14 +185,14 @@ namespace Rimss.Common.Collections.Synchronized
         /// <param name="value">The object to locate in the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</param>
         /// <returns>true if the <see cref="System.Object"/> is found in the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>; 
         /// otherwise, false.</returns>
-        protected bool InnerContains(object value) { return (this._innerSynchronizedList as IList).Contains(value); }
+        protected bool InnerContains(object value) { return (this._innerList as IList).Contains(value); }
 
         /// <summary>
         /// Determines the index of a specific item in the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
         /// </summary>
         /// <param name="value">The object to locate in the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</param>
         /// <returns>The index of value if found in the list; otherwise, -1.</returns>
-        protected int InnerIndexOf(object value) { return (this._innerSynchronizedList as IList).IndexOf(value); }
+        protected int InnerIndexOf(object value) { return (this._innerList as IList).IndexOf(value); }
 
         /// <summary>
         /// Gets the element at the specified index.
@@ -223,7 +201,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <returns>The element at the specified index.</returns>
         /// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in
         /// the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</exception>
-        protected object InnerGet(int index) { return this._innerSynchronizedList[index]; }
+        protected object InnerGet(int index) { return this._innerList[index]; }
 
         /// <summary>
         /// Adds an item to the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
@@ -234,7 +212,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <para>-or-</para>
         /// <para>The <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> has a fixed size.</para></exception>
         /// <exception cref="InvalidCastException"><paramref name="value"/> could not be cast to <typeparamref name="T"/>.</exception>
-        protected virtual int InnerAdd(object value) { return (this._innerSynchronizedList as IList).Add((T)value); }
+        protected virtual int InnerAdd(object value) { return (this._innerList as IList).Add((T)value); }
 
         /// <summary>
         /// Inserts an item to the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> at the specified index.
@@ -249,7 +227,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <exception cref="System.NullReferenceException"><paramref name="value"/> is null reference in 
         /// the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</exception>
         /// <exception cref="InvalidCastException"><paramref name="value"/> could not be cast to <typeparamref name="T"/>.</exception>
-        protected virtual void InnerInsert(int index, object value) { this._innerSynchronizedList.Insert(index, (T)value); }
+        protected virtual void InnerInsert(int index, object value) { this._innerList.Insert(index, (T)value); }
 
         /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
@@ -262,10 +240,10 @@ namespace Rimss.Common.Collections.Synchronized
         /// <para>The <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> has a fixed size.</para></exception>
         protected virtual bool InnerRemove(object value)
         {
-            if (!(this._innerSynchronizedList as IList).Contains(value))
+            if (!(this._innerList as IList).Contains(value))
                 return false;
 
-            (this._innerSynchronizedList as IList).Remove(value);
+            (this._innerList as IList).Remove(value);
 
             return true;
         }
@@ -280,7 +258,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <exception cref="System.NotSupportedException">The property is set and the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>
         /// is read-only.</exception>
         /// <exception cref="InvalidCastException"><paramref name="value"/> could not be cast to <typeparamref name="T"/>.</exception>
-        protected virtual void InnerSet(int index, object value) { this._innerSynchronizedList[index] = (T)value; }
+        protected virtual void InnerSet(int index, object value) { this._innerList[index] = (T)value; }
 
         #region Explicit Members
 
@@ -315,7 +293,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <summary>
         /// Gets an object that can be used to synchronize access to the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.
         /// </summary>
-        object ICollection.SyncRoot { get { return this._innerSynchronizedList; } }
+        object ICollection.SyncRoot { get { return this._innerList; } }
 
         /// <summary>
         /// Copies the elements of the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> to an <see cref="System.Array"/>, 
@@ -333,7 +311,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// <para>-or-</para>
         /// <para>The type of the source <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/> cannot be cast automatically to the type of the 
         /// destination array.</para></exception>
-        protected void InnerCopyTo(Array array, int index) { (this._innerSynchronizedList as IList).CopyTo(array, index); }
+        protected void InnerCopyTo(Array array, int index) { (this._innerList as IList).CopyTo(array, index); }
 
         void ICollection.CopyTo(Array array, int index) { this.InnerCopyTo(array, index); }
 
@@ -346,7 +324,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// </summary>
         /// <returns>A <see cref="System.Collections.Generic.IEnumerator&lt;T&gt;"/> that can be used to iterate through 
         /// the <see cref="SynchronizedCollections.SynchronizedEnumerableBase&lt;T&gt;"/>.</returns>
-        public IEnumerator<T> GetEnumerator() { return new TypedEnumeratorWrapper<T>(this._innerSynchronizedList); }
+        public IEnumerator<T> GetEnumerator() { return new TypedEnumeratorWrapper<T>(this._innerList); }
 
         IEnumerator IEnumerable.GetEnumerator() { return this.InnerGetEnumerator(); }
 
@@ -354,7 +332,7 @@ namespace Rimss.Common.Collections.Synchronized
         /// Returns an enumerator that iterates through the inner collection.
         /// </summary>
         /// <returns>An <see cref="System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
-        protected IEnumerator InnerGetEnumerator() { return this._innerSynchronizedList.GetEnumerator(); }
+        protected IEnumerator InnerGetEnumerator() { return this._innerList.GetEnumerator(); }
 
         #endregion
     }

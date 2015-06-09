@@ -37,7 +37,9 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Attributes\DisplayTextAttribute.cs" />
+    <Compile Include="JobStatusCodes.cs" />
+    <Compile Include="ImageFormatCodes.cs" />
     <Compile Include="Collections\GenericAccessObservableCollection.cs" />
     <Compile Include="Collections\IExpandable.cs" />
     <Compile Include="Collections\IGenericAccessObservableCollection.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Events\ValueEventArgs.cs" />
     <Compile Include="Events\ValueEventHandler.cs" />
     <Compile Include="ExtensionMethods\TextManagmentExtensions.cs" />
+    <Compile Include="JobReasonCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
