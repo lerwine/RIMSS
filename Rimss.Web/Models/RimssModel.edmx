@@ -1270,35 +1270,75 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
     <edmx:ConceptualModels>
       <Schema Namespace="RimssModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Application">
+          <Documentation>
+            <Summary>Represents an Application Registry item</Summary>
+          </Documentation>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Unique ID of Application Registry Entry</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" >
+            <Documentation>
+              <Summary>Title of Application Registry Entry</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" >
+            <Documentation>
+              <Summary>Descriptive text for the Application Registry Entry</Summary>
+            </Documentation>
+          </Property>
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" >
             <Documentation>
-              <Summary>Created On</Summary>
+              <Summary>Date and time when Application Registry Entry was Created</Summary>
             </Documentation>
           </Property>
           <Property Name="CreatedById" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Unique identifier associated with the Identity that created the Application Registry Entry</Summary>
+            </Documentation>
           </Property>
           <Property Name="ModifiedById" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Unique identifier associated with the Identity that last modified the Application Registry Entry</Summary>
+            </Documentation>
           </Property>
           <NavigationProperty Name="CreatedBy" Relationship="Self.FK_Application_CreatedBy" FromRole="Application" ToRole="CreatedBy" >
             <Documentation>
-              <Summary>Created By</Summary>
+              <Summary>Identity that created the Application Registry Entry</Summary>
             </Documentation>
           </NavigationProperty>
           <NavigationProperty Name="ModifiedBy" Relationship="Self.FK_Application_ModifiedBy" FromRole="Application" ToRole="ModifiedBy" >
             <Documentation>
-              <Summary>Modified By</Summary>
+              <Summary>Identity that last modified the Application Registry Entry</Summary>
             </Documentation>
           </NavigationProperty>
-          <NavigationProperty Name="Folders" Relationship="Self.FK_Folder_Application" FromRole="Application" ToRole="Folder" />
-          <NavigationProperty Name="SourceImages" Relationship="Self.FK_SourceImage_Application" FromRole="Application" ToRole="SourceImage" />
-          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="ConversionJobLogs" Relationship="RimssModel.FK_ConversionJobLog_Application" FromRole="Application" ToRole="ConversionJobLog" />
+          <NavigationProperty Name="Folders" Relationship="Self.FK_Folder_Application" FromRole="Application" ToRole="Folder" >
+            <Documentation>
+              <Summary>All folders in the Application Registry Entry, including subfolders</Summary>
+              <LongDescription>An Application Registry Entry contains a hierarchical folder structure. Folder objects with a null ParentId value are considered to be "root" level folders.</LongDescription>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="SourceImages" Relationship="Self.FK_SourceImage_Application" FromRole="Application" ToRole="SourceImage" >
+            <Documentation>
+              <Summary>All source images associated with Application Registry Entry</Summary>
+              <LongDescription>Source images are contained withing an Application Registry Entry, in a hierarchical folder structure. All source images which have a null ParentId value are considered to be located at the "root" level.</LongDescription>
+            </Documentation>
+          </NavigationProperty>
+          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>Date and time when Application Registry Entry was Modified</Summary>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="ConversionJobLogs" Relationship="RimssModel.FK_ConversionJobLog_Application" FromRole="Application" ToRole="ConversionJobLog" >
+            <Documentation>
+              <Summary>Log entries for image conversion jobs</Summary>
+              <LongDescription>Each log entry contains the results of an image conversion job.</LongDescription>
+            </Documentation>
+          </NavigationProperty>
         </EntityType>
         <EntityType Name="ConvertedImage">
           <Key>
@@ -1309,9 +1349,20 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="Width" Type="Int32" Nullable="false" />
           <Property Name="Height" Type="Int32" Nullable="false" />
-          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" >
+            <Documentation>
+              <Summary>Custom meta data associated with converted image</Summary>
+            </Documentation>
+          </Property>
           <NavigationProperty Name="SourceImage" Relationship="Self.FK_ConvertedImage_SourceImage" FromRole="ConvertedImage" ToRole="SourceImage" />
-          <Property Name="Tag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>Logical tag name associated with converted image</Summary>
+              <LongDescription>A Logical Tag is an alternate means of logically separating sets of images, according to a text value. 
+One example might be using "External" or "Internal" tag values to mark certain images as external-only and others as internal-only.
+Another example might be "Test", "UAT" or "Prod".</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="FormatId" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedById" Type="Guid" Nullable="false" />
@@ -1380,12 +1431,21 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <Property Name="DisplayText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ParentId" Type="Guid" />
+          <Property Name="ParentId" Type="Guid" Nullable="true" >
+            <Documentation>
+              <Summary>Unique identifier of parent folder</Summary>
+              <LongDescription>A null value indicates that the image exists at the root level of its applicaiton registry entry</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="ApplicationId" Type="Guid" Nullable="false" />
           <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="Width" Type="Int32" Nullable="false" />
           <Property Name="Height" Type="Int32" Nullable="false" />
-          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MetaData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" >
+            <Documentation>
+              <Summary>Custom meta data associated with source image</Summary>
+            </Documentation>
+          </Property>
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedById" Type="Guid" Nullable="false" />
           <Property Name="ModifiedById" Type="Guid" Nullable="false" />
@@ -1765,43 +1825,150 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <Property Type="String" Name="DetailMessage" Nullable="false" MaxLength="Max" />
         </ComplexType>
         <EntityType Name="ConversionJobLog">
+          <Documentation>
+            <Summary>Represents an image conversion log</Summary>
+          </Documentation>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="ReasonId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedById" Type="Guid" Nullable="false" />
-          <Property Name="StartedOn" Type="DateTime" Precision="3" />
-          <Property Name="StartedById" Type="Guid" />
-          <Property Name="TerminatedOn" Type="DateTime" Precision="3" />
-          <Property Name="TerminatedById" Type="Guid" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="StatusMessage" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Name="DetailMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Application" Relationship="RimssModel.FK_ConversionJobLog_Application" FromRole="ConversionJobLog" ToRole="Application" />
-          <NavigationProperty Name="CreatedBy" Relationship="RimssModel.FK_ConversionJobLog_CreatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
-          <NavigationProperty Name="JobReasonCode" Relationship="RimssModel.FK_ConversionJobLog_JobReasonCodes" FromRole="ConversionJobLog" ToRole="JobReasonCode" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-          <NavigationProperty Name="JobStatusCode" Relationship="RimssModel.FK_ConversionJobLog_JobStatusCodes" FromRole="ConversionJobLog" ToRole="JobStatusCode" />
-          <NavigationProperty Name="StartedBy" Relationship="RimssModel.FK_ConversionJobLog_StartedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
-          <NavigationProperty Name="TerminatedBy" Relationship="RimssModel.FK_ConversionJobLog_TerminatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" />
-          <NavigationProperty Name="FileConversionLogs" Relationship="RimssModel.FK_FileConversionLog_ConversionJobLog" FromRole="ConversionJobLog" ToRole="FileConversionLog" />
+          <Property Name="Id" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Unique identifier of job log</Summary>
+              <LongDescription>This can also be considered the unique identifier of the conversion job.</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Application Registry entry associated with log</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ReasonId" Type="Int32" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" >
+            <Documentation>
+              <Summary>Unique identifier of conversion job type (reason code)</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>Date and time when conversion job was created (requested)</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreatedById" Type="Guid" Nullable="false" >
+            <Documentation>
+              <Summary>Unique identifier associated with the Identity that created (requsted) the conversion job</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StartedOn" Type="DateTime" Precision="3" >
+            <Documentation>
+              <Summary>Date and time when conversion job was started</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StartedById" Type="Guid" >
+            <Documentation>
+              <Summary>Unique identifier associated with the Identity that started the conversion job</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="TerminatedOn" Type="DateTime" Precision="3" >
+            <Documentation>
+              <Summary>Date and time when the conversion job was terminated.</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="TerminatedById" Type="Guid" >
+            <Documentation>
+              <Summary>Unique identifier associated with the Identity that terminated the conversion job</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StatusId" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>Unique identifier of conversion job status code</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StatusMessage" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>Text message which complements the status code</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DetailMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>Detailed message which complements the status code</Summary>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Application" Relationship="RimssModel.FK_ConversionJobLog_Application" FromRole="ConversionJobLog" ToRole="Application" >
+            <Documentation>
+              <Summary>Applicaiton associated with job log</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="CreatedBy" Relationship="RimssModel.FK_ConversionJobLog_CreatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" >
+            <Documentation>
+              <Summary>Identity which created (requested) the conversion job</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="JobReasonCode" Relationship="RimssModel.FK_ConversionJobLog_JobReasonCodes" FromRole="ConversionJobLog" ToRole="JobReasonCode" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" >
+            <Documentation>
+              <Summary>Conversion Job type (reason code)</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="JobStatusCode" Relationship="RimssModel.FK_ConversionJobLog_JobStatusCodes" FromRole="ConversionJobLog" ToRole="JobStatusCode" >
+            <Documentation>
+              <Summary>Job status code</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="StartedBy" Relationship="RimssModel.FK_ConversionJobLog_StartedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" >
+            <Documentation>
+              <Summary>Identity which started the conversion job</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="TerminatedBy" Relationship="RimssModel.FK_ConversionJobLog_TerminatedBy" FromRole="ConversionJobLog" ToRole="IdentityCache" >
+            <Documentation>
+              <Summary>Identity which terminated the conversion job</Summary>
+            </Documentation>
+          </NavigationProperty>
+          <NavigationProperty Name="FileConversionLogs" Relationship="RimssModel.FK_FileConversionLog_ConversionJobLog" FromRole="ConversionJobLog" ToRole="FileConversionLog" >
+            <Documentation>
+              <Summary>Log entries for individual file conversions</Summary>
+              <LongDescription>One file conversion log entry exists for each source image in the conversion job, and its values are updated as the job progresses.</LongDescription>
+            </Documentation>
+          </NavigationProperty>
         </EntityType>
         <EntityType Name="FileConversionLog">
+          <Documentation>
+            <Summary>Represents a individual file conversion for a conversion job.</Summary>
+            <LongDescription>One file conversion log entry exists for each source image in the conversion job, and its values are updated as the job progresses.</LongDescription>
+          </Documentation>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="JobId" Type="Guid" Nullable="false" />
-          <Property Name="StartedOn" Type="DateTime" Precision="3" />
-          <Property Name="TerminatedOn" Type="DateTime" Precision="3" />
+          <Property Name="StartedOn" Type="DateTime" Precision="3" Nullable="true" >
+            <Documentation>
+              <Summary>Date and time when image conversion process was startedl</Summary>
+              <LongDescription>A null value indicates tht the image conversion has not been started.</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="TerminatedOn" Type="DateTime" Precision="3" Nullable="true" >
+            <Documentation>
+              <Summary>Date and time when image conversion process was terminated.</Summary>
+              <LongDescription>A null value indicates that the image conversion has not started or is still in progress.</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="SourceImageId" Type="Guid" Nullable="false" />
-          <Property Name="Tag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tag" Type="String" MaxLength="255" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>Logical Tag to be assigned to converted image</Summary>
+              <LongDescription>A Logical Tag is an alternate means of logically separating sets of images, according to a text value. 
+One example might be using "External" or "Internal" tag values to mark certain images as external-only and others as internal-only.
+Another example might be "Test", "UAT" or "Prod".</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="Width" Type="Int32" Nullable="false" />
           <Property Name="Height" Type="Int32" Nullable="false" />
           <Property Name="FormatId" Type="Int32" Nullable="false" />
-          <Property Name="ConvertedImageId" Type="Guid" />
+          <Property Name="ConvertedImageId" Type="Guid" Nullable="true" >
+            <Documentation>
+              <Summary>Unique identifier of converted image</Summary>
+              <LongDescription>If TerminatedOn is null, and this value is not null, then that indicates that an existing ConvertedImage will be overwritten upon successful completion. Otherwise, a new ConvertedImage will be created upon successful completion.</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="StatusMessage" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="DetailMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -1810,7 +1977,12 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <NavigationProperty Name="FileConversionImageFormatCode" Relationship="RimssModel.FK_FileConversionLog_ImageFormatCodes" FromRole="FileConversionLog" ToRole="ImageFormatCode" />
           <NavigationProperty Name="JobStatusCode" Relationship="RimssModel.FK_FileConversionLog_JobStatusCodes" FromRole="FileConversionLog" ToRole="JobStatusCode" />
           <NavigationProperty Name="SourceImage" Relationship="RimssModel.FK_FileConversionLog_SourceImage" FromRole="FileConversionLog" ToRole="SourceImage" />
-          <NavigationProperty Name="ConvertedImage" Relationship="RimssModel.FK_ConversionLog_ConvertedImage2" FromRole="FileConversionLog" ToRole="ConvertedImage" />
+          <NavigationProperty Name="ConvertedImage" Relationship="RimssModel.FK_ConversionLog_ConvertedImage2" FromRole="FileConversionLog" ToRole="ConvertedImage" >
+            <Documentation>
+              <Summary>Converted image associated with individual file conversion</Summary>
+              <LongDescription>If TerminatedOn is null, and this value is not null, then that indicates that an existing ConvertedImage will be overwritten upon successful completion. Otherwise, a new ConvertedImage will be created upon successful completion.</LongDescription>
+            </Documentation>
+          </NavigationProperty>
         </EntityType>
         <EntityType Name="ImageFormatCode">
           <Key>
@@ -1825,12 +1997,24 @@ warning 6002: The table/view 'Rimss.dbo.View_SystemConvertedImageListing' does n
           <NavigationProperty Name="ConvertedImages" Relationship="RimssModel.FK_ConvertedImage_ImageFormatCodes" FromRole="ImageFormatCode" ToRole="ConvertedImage" />
         </EntityType>
         <EntityType Name="JobReasonCode">
+          <Documentation>
+            <Summary>Represents a conversion job type</Summary>
+            <LongDescription>This correlates to an enumerated list of values. This is can also be considered as the "reason" for the job.</LongDescription>
+          </Documentation>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>Programmatic name of enumerated value associated with job type.</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>User-friendly title of job type</Summary>
+            </Documentation>
+          </Property>
           <NavigationProperty Name="ConversionJobLogs" Relationship="RimssModel.FK_ConversionJobLog_JobReasonCodes" FromRole="JobReasonCode" ToRole="ConversionJobLog" />
         </EntityType>
         <EntityType Name="JobStatusCode">
