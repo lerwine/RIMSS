@@ -1,4 +1,4 @@
-﻿@model Rimss.Web.Models.Application
+﻿@model Rimss.Web.Data.Application
 
 @{
     ViewBag.Title = "Delete";
@@ -11,54 +11,23 @@
     <h4>Application</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Title)</dt>
+        <dd>@Html.DisplayFor(model => model.Title)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+        <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+        <dd>@Html.DisplayFor(model => model.CreatedBy.LoginName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
+        <dd>@Html.DisplayFor(model => model.ModifiedOn)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy.LoginName)
-        </dd>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy.LoginName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedOn)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+        <dd>@Html.DisplayFor(model => model.ModifiedBy.LoginName)</dd>
     </dl>
 
     @using (Html.BeginForm()) {

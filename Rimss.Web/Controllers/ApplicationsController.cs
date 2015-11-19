@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Rimss.Web.Models;
+using Rimss.Web.Data;
 using System.Data.Entity.Core.Objects;
 
 namespace Rimss.Web.Controllers
@@ -19,50 +19,69 @@ namespace Rimss.Web.Controllers
         public ActionResult Index()
         {
             var applications = db.Applications.Include(a => a.CreatedBy).Include(a => a.ModifiedBy);
-            return View(applications.ToList());
+            return this.View(applications.ToList());
         }
 
         // GET: Applications/Details/5
         public ActionResult Details(Guid? id)
         {
-            if (id == null)
-            {
+            if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Application application = db.Applications.Find(id);
+
+            Application application = db.Applications.Find(id.Value);
             if (application == null)
-            {
-                return HttpNotFound();
-            }
-            return View(application);
+                return this.HttpNotFound();
+
+            return this.View(application);
         }
 
         // GET: Applications/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        public ActionResult Create() { return this.View(); }
 
         // POST: Applications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description")] Application application)
+        public ActionResult Create([Bind(Include = "Title,Description")] Application application)
         {
-            if (ModelState.IsValid)
+            if (String.IsNullOrWhiteSpace(application.Title))
+                this.ModelState.AddModelError("Title", "Title cannot be empty");
+            else
+                application.Title = application.Title.Trim();
+
+            if (db.Applications.Any(a => String.Compare(a.Title, application.Title, true) == 0))
+                this.ModelState.AddModelError("Title", "Another application with that title alraedy exists.");
+            else if (application.Description == null)
+                application.Description = "";
+
+            if (!this.ModelState.IsValid)
+                return this.View(application);
+
+            try
             {
                 GetCurrentUserIdentityCache_Result currentUser = db.GetCurrentUserIdentityCache().FirstOrDefault();
+
+                if (currentUser == null)
+                    throw new Exception("Unable to get current user from the identity cache.");
+
+                application.Id = Guid.NewGuid();
                 application.CreatedById = currentUser.Id;
                 application.CreatedOn = DateTime.Now;
                 application.ModifiedById = currentUser.Id;
                 application.ModifiedOn = application.CreatedOn;
-                application.Id = Guid.NewGuid();
                 db.Applications.Add(application);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return View(application);
+            catch (Exception exception)
+            {
+                this.ModelState.AddModelError("CreatedById", exception);
+            }
+
+            if (!this.ModelState.IsValid)
+                return this.View(application);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Applications/Edit/5
@@ -102,16 +121,14 @@ namespace Rimss.Web.Controllers
         // GET: Applications/Delete/5
         public ActionResult Delete(Guid? id)
         {
-            if (id == null)
-            {
+            if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Application application = db.Applications.Find(id);
+
+            Application application = db.Applications.Find(id.Value);
             if (application == null)
-            {
-                return HttpNotFound();
-            }
-            return View(application);
+                return this.HttpNotFound();
+
+            return this.View(application);
         }
 
         // POST: Applications/Delete/5
@@ -120,17 +137,18 @@ namespace Rimss.Web.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Application application = db.Applications.Find(id);
+            if (application == null)
+                return this.HttpNotFound();
             db.Applications.Remove(application);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
+
             base.Dispose(disposing);
         }
     }
