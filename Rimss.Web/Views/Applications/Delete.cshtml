@@ -1,4 +1,4 @@
-﻿@model Rimss.Web.Data.Application
+﻿@model Rimss.Web.Models.Application
 
 @{
     ViewBag.Title = "Delete";
@@ -21,7 +21,7 @@
         <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
 
         <dt>@Html.DisplayNameFor(model => model.CreatedBy)</dt>
-        <dd>@Html.DisplayFor(model => model.CreatedBy.LoginName)</dd>
+        <dd>@Html.DisplayFor(model => model.CreatedByDisplayText)</dd>
 
         <dt>@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
         <dd>@Html.DisplayFor(model => model.ModifiedOn)</dd>

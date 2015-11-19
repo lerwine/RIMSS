@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Rimss.Web.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Rimss.Web.Data;
-using System.Data.Entity.Core.Objects;
 
 namespace Rimss.Web.Controllers
 {
     public class ApplicationsController : Controller
     {
-        private RimssDbEntities db = new RimssDbEntities();
+        private Data.RimssDbEntities db = new Data.RimssDbEntities();
 
         // GET: Applications
         public ActionResult Index()
         {
-            var applications = db.Applications.Include(a => a.CreatedBy).Include(a => a.ModifiedBy);
-            return this.View(applications.ToList());
+            return this.View(Application.GetList(db.Applications.Include(a => a.CreatedBy).Include(a => a.ModifiedBy)));
         }
 
         // GET: Applications/Details/5
@@ -28,7 +23,7 @@ namespace Rimss.Web.Controllers
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Application application = db.Applications.Find(id.Value);
+            Application application = Application.Create(db.Applications.Find(id.Value));
             if (application == null)
                 return this.HttpNotFound();
 
@@ -45,32 +40,23 @@ namespace Rimss.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title,Description")] Application application)
         {
-            if (String.IsNullOrWhiteSpace(application.Title))
-                this.ModelState.AddModelError("Title", "Title cannot be empty");
-            else
-                application.Title = application.Title.Trim();
+            application.Title = application.Title.Trim();
 
             if (db.Applications.Any(a => String.Compare(a.Title, application.Title, true) == 0))
                 this.ModelState.AddModelError("Title", "Another application with that title alraedy exists.");
-            else if (application.Description == null)
-                application.Description = "";
 
             if (!this.ModelState.IsValid)
                 return this.View(application);
 
             try
             {
-                GetCurrentUserIdentityCache_Result currentUser = db.GetCurrentUserIdentityCache().FirstOrDefault();
+                IdentityCache currentUser = IdentityCache.GetCurrentUser(db);
 
                 if (currentUser == null)
                     throw new Exception("Unable to get current user from the identity cache.");
 
-                application.Id = Guid.NewGuid();
-                application.CreatedById = currentUser.Id;
-                application.CreatedOn = DateTime.Now;
-                application.ModifiedById = currentUser.Id;
-                application.ModifiedOn = application.CreatedOn;
-                db.Applications.Add(application);
+                application.SetCreated(currentUser);
+                db.Applications.Add(application.GetDataObject());
                 db.SaveChanges();
             }
             catch (Exception exception)
@@ -88,15 +74,13 @@ namespace Rimss.Web.Controllers
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Application application = db.Applications.Find(id);
+
+            Application application = Application.Create(db.Applications.Find(id));
             if (application == null)
-            {
-                return HttpNotFound();
-            }
-            return View(application);
+                return this.HttpNotFound();
+
+            return this.View(application);
         }
 
         // POST: Applications/Edit/5
@@ -109,9 +93,7 @@ namespace Rimss.Web.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(application).State = EntityState.Modified;
-                GetCurrentUserIdentityCache_Result currentUser = db.GetCurrentUserIdentityCache().FirstOrDefault();
-                application.ModifiedById = currentUser.Id;
-                application.ModifiedOn = DateTime.Now;
+                application.SetModified(IdentityCache.Create(db.GetCurrentUserIdentityCache().FirstOrDefault()));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -124,7 +106,7 @@ namespace Rimss.Web.Controllers
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Application application = db.Applications.Find(id.Value);
+            Application application = Application.Create(db.Applications.Find(id.Value));
             if (application == null)
                 return this.HttpNotFound();
 
@@ -136,7 +118,7 @@ namespace Rimss.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Application application = db.Applications.Find(id);
+            Data.Application application = db.Applications.Find(id);
             if (application == null)
                 return this.HttpNotFound();
             db.Applications.Remove(application);

@@ -133,6 +133,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\GetCurrentUserIdentityCache_Result_Extended.cs" />
+    <Compile Include="Data\IdentityCache_Extended.cs" />
+    <Compile Include="Data\IIdentityCache.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +245,8 @@
     <Compile Include="Data\View_SystemConvertedImageListing.cs">
       <DependentUpon>RimssModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\IdentityCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -305,7 +310,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
